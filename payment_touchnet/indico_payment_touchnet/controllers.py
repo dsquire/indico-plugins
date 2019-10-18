@@ -33,7 +33,7 @@ paypal_transaction_action_mapping = {'Completed': TransactionAction.complete,
 
 
 class TouchnetPost(RH):
-    """Process the notification sent by the PayPal"""
+    """Process the notification sent by the Touchnet"""
 
     CSRF_ENABLED = False
 

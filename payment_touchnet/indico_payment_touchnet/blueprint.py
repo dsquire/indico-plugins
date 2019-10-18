@@ -13,7 +13,7 @@ from indico_payment_touchnet.controllers import TouchnetCancel, TouchnetSuccess,
 
 
 blueprint = IndicoPluginBlueprint('payment_touchnet', __name__,
-                                  url_prefix='/event/<confId>/registrations/<int:reg_form_id>/payment/response/paypal')
+                                  url_prefix='/event/<confId>/registrations/<int:reg_form_id>/payment/response/touchnet')
 
 blueprint.add_url_rule('/cancel', 'cancel', TouchnetCancel, methods=('GET', 'POST'))
 blueprint.add_url_rule('/success', 'success', TouchnetSuccess, methods=('GET', 'POST'))
