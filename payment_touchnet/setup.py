@@ -12,7 +12,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='indico-plugin-payment-touchnet',
-    version='2.2',
+    version='0.1',
     description='Touchnet uPay payments for Indico event registration fees',
     url='https://github.com/indico/indico-plugins',
     license='MIT',

@@ -37,15 +37,15 @@ class EventSettingsForm(PaymentEventSettingsFormBase):
                            description=_('The PayPal ID or email address associated with a PayPal account.'))
 
 
-class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
-    """Touchnet
+class PaypalPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
+    """PayPal
 
-    Provides a payment method using the Touchnet uPay API.
+    Provides a payment method using the PayPal IPN API.
     """
     configurable = True
     settings_form = PluginSettingsForm
     event_settings_form = EventSettingsForm
-    default_settings = {'method_name': 'Touchnet',
+    default_settings = {'method_name': 'PayPal',
                         'url': 'https://www.paypal.com/cgi-bin/webscr',
                         'business': ''}
     default_event_settings = {'enabled': False,
