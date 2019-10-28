@@ -27,13 +27,13 @@ from indico_payment_touchnet import _
 IPN_VERIFY_EXTRA_PARAMS = (('cmd', '_notify-validate'),)
 
 
-paypal_transaction_action_mapping = {'Completed': TransactionAction.complete,
+touchnet_transaction_action_mapping = {'Completed': TransactionAction.complete,
                                      'Denied': TransactionAction.reject,
                                      'Pending': TransactionAction.pending}
 
 
 class TouchnetPost(RH):
-    """Process the notification sent by the Touchnet"""
+    """Process the notification sent by Touchnet"""
 
     CSRF_ENABLED = False
 
@@ -62,7 +62,7 @@ class TouchnetPost(RH):
             current_plugin.logger.warning("Payment refunded (status: %s)\nData received: %s",
                                           payment_status, request.form)
             return
-        if payment_status not in paypal_transaction_action_mapping:
+        if payment_status not in touchnet_transaction_action_mapping:
             current_plugin.logger.warning("Payment status '%s' not recognized\nData received: %s",
                                           payment_status, request.form)
             return
@@ -70,7 +70,7 @@ class TouchnetPost(RH):
         register_transaction(registration=self.registration,
                              amount=float(request.form['mc_gross']),
                              currency=request.form['mc_currency'],
-                             action=paypal_transaction_action_mapping[payment_status],
+                             action=touchnet_transaction_action_mapping[payment_status],
                              provider='paypal',
                              data=request.form)
 
@@ -121,9 +121,9 @@ class TouchnetCancel(TouchnetPost):
         return redirect(url_for('event_registration.display_regform', self.registration.locator.registrant))
 
 
-class TouchnetError(TouchnetPost):
-    """Error message"""
-
-    def _process(self):
-        flash(_('There was an error while processing your payment.'), 'error')
-        return redirect(url_for('event_registration.display_regform', self.registration.locator.registrant))
+# class TouchnetError(TouchnetPost):
+#     """Error message"""
+#
+#     def _process(self):
+#         flash(_('There was an error while processing your payment.'), 'error')
+#         return redirect(url_for('event_registration.display_regform', self.registration.locator.registrant))

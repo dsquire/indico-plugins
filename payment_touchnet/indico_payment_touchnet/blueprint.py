@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 
 from indico.core.plugins import IndicoPluginBlueprint
 
-from indico_payment_touchnet.controllers import TouchnetCancel, TouchnetSuccess, TouchnetError, TouchnetPost
+from indico_payment_touchnet.controllers import TouchnetCancel, TouchnetSuccess, TouchnetPost
 
 
 blueprint = IndicoPluginBlueprint('payment_touchnet', __name__,
@@ -17,6 +17,6 @@ blueprint = IndicoPluginBlueprint('payment_touchnet', __name__,
 
 blueprint.add_url_rule('/cancel', 'cancel', TouchnetCancel, methods=('GET', 'POST'))
 blueprint.add_url_rule('/success', 'success', TouchnetSuccess, methods=('GET', 'POST'))
-blueprint.add_url_rule('/error', 'error', TouchnetError, method=('GET', 'POST'))
+# blueprint.add_url_rule('/error', 'error', TouchnetError, method=('GET', 'POST'))
 # Used by PayPal to send an asynchronous notification for the transaction (pending, successful, etc)
 blueprint.add_url_rule('/post', 'post', TouchnetPost, methods=('POST',))
