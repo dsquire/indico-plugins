@@ -25,10 +25,10 @@ from indico_payment_touchnet.util import validate_business
 
 
 class PluginSettingsForm(PaymentPluginSettingsFormBase):
-    url = URLField(_('API URL'), [DataRequired()], description=_('URL of the PayPal HTTP API.'))
-    business = StringField(_('Business'), [Optional(), validate_business],
-                           description=_('The default PayPal ID or email address associated with a PayPal account. '
-                                         'Event managers will be able to override this.'))
+    url = URLField(_('API URL'), [DataRequired()], description=_('URL of the uPay HTTP API.'))
+    # business = StringField(_('Business'), [Optional(), validate_business],
+    #                        description=_('The default PayPal ID or email address associated with a PayPal account. '
+    #                                      'Event managers will be able to override this.'))
 
 
 class EventSettingsForm(PaymentEventSettingsFormBase):
@@ -46,8 +46,7 @@ class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
     settings_form = PluginSettingsForm
     event_settings_form = EventSettingsForm
     default_settings = {'method_name': 'Touchnet',
-                        'url': 'https://www.paypal.com/cgi-bin/webscr',
-                        'business': ''}
+                        'url': 'https://www.paypal.com/cgi-bin/webscr'}
     default_event_settings = {'enabled': False,
                               'method_name': None,
                               'business': None}
