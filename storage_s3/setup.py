@@ -1,5 +1,5 @@
 # This file is part of the Indico plugins.
-# Copyright (C) 2002 - 2019 CERN
+# Copyright (C) 2002 - 2020 CERN
 #
 # The Indico plugins are free software; you can redistribute
 # them and/or modify them under the terms of the MIT License;
@@ -12,7 +12,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='indico-plugin-storage-s3',
-    version='2.0.3',
+    version='2.0.5',
     description='S3 storage backend for Indico',
     url='https://github.com/indico/indico-plugins',
     license='MIT',

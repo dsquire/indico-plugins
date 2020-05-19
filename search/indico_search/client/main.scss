@@ -1,5 +1,5 @@
 // This file is part of the Indico plugins.
-// Copyright (C) 2002 - 2019 CERN
+// Copyright (C) 2002 - 2020 CERN
 //
 // The Indico plugins are free software; you can redistribute
 // them and/or modify them under the terms of the MIT License;
@@ -169,11 +169,9 @@
 
 .search-tag {
     max-width: 112px;
-    display: table-cell;
+    display: flex;
     line-height: 13px;
-    height: 13px;
     vertical-align: middle;
-    margin: 1px 1px 1px 1px;
     padding: 2px 5px;
     float: left;
     -ms-user-select: none;

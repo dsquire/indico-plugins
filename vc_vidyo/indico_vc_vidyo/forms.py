@@ -1,5 +1,5 @@
 # This file is part of the Indico plugins.
-# Copyright (C) 2002 - 2019 CERN
+# Copyright (C) 2002 - 2020 CERN
 #
 # The Indico plugins are free software; you can redistribute
 # them and/or modify them under the terms of the MIT License;
@@ -54,7 +54,7 @@ class VCRoomForm(VCRoomFormBase, VidyoAdvancedFormMixin):
                                    description=_('Used to protect the access to the VC Room (leave blank for open '
                                                  'access). Only digits allowed.'))
     auto_mute = BooleanField(_('Auto mute'),
-                             widget=SwitchWidget(_('On'), _('Off')),
+                             widget=SwitchWidget(),
                              description=_('The VidyoDesktop clients will join the VC room muted by default '
                                            '(audio and video)'))
 
