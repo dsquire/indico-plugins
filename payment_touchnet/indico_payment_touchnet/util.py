@@ -7,19 +7,18 @@
 
 from __future__ import unicode_literals
 
-import re
-
 from wtforms import ValidationError
-
-from indico.util.string import is_valid_mail
 
 from indico_payment_touchnet import _
 
 
-def validate_business(form, field):
-    """Valiates a PayPal business string.
+def validate_site_id(form, field):
+    # TODO: Consider providing better validation here
+    if not isinstance(form.data, int) and form.data > 0:
+        raise ValidationError(_('Invalid Site Id'))
 
-    It can either be an email address or a paypal business account ID.
-    """
-    if not is_valid_mail(field.data, multi=False) and not re.match(r'^[a-zA-Z0-9]{13}$', field.data):
-        raise ValidationError(_('Invalid email address / paypal ID'))
+
+def validate_key(form, field):
+    # TODO: Don't hardcode the min length
+    if len(form.data) < 10:
+        raise ValidationError(_('Key must be longer than 10 bytes'))

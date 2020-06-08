@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 
 from flask_pluginengine import render_plugin_template
 
-from wtforms.fields.core import StringField
+from wtforms.fields.core import StringField, IntegerField
 from wtforms.fields.html5 import URLField
 from wtforms.validators import DataRequired, Optional
 
@@ -21,20 +21,25 @@ from indico.web.forms.validators import UsedIf
 
 from indico_payment_touchnet import _
 from indico_payment_touchnet.blueprint import blueprint
-from indico_payment_touchnet.util import validate_business
+from indico_payment_touchnet.util import validate_site_id, validate_key
 
 
 class PluginSettingsForm(PaymentPluginSettingsFormBase):
-    url = URLField(_('API URL'), [DataRequired()], description=_('URL of the uPay HTTP API.'))
-    # business = StringField(_('Business'), [Optional(), validate_business],
-    #                        description=_('The default PayPal ID or email address associated with a PayPal account. '
-    #                                      'Event managers will be able to override this.'))
+    url = URLField(_('Touchnet uPay API URL'), [DataRequired()], description=_('URL of the uPay HTTP API.'))
 
 
 class EventSettingsForm(PaymentEventSettingsFormBase):
-    business = StringField(_('Business'), [UsedIf(lambda form, _: form.enabled.data), DataRequired(),
-                                           validate_business],
-                           description=_('The PayPal ID or email address associated with a PayPal account.'))
+    site_id = IntegerField(_('Site Id'), [UsedIf(lambda form, _: form.enabled.data), DataRequired(),
+                                          validate_site_id],
+                           description=_('TouchNet uPay Site Id associated with event.'))
+
+    validation_key = StringField(_('Validation Key'), [UsedIf(lambda form, _: form.enabled.data), DataRequired(),
+                                                       validate_key],
+                                 description=_('TouchNet validation key associated with event.'))
+
+    posting_value = StringField(_('Posting Value'), [UsedIf(lambda form, _: form.enabled.data), DataRequired(),
+                                                     validate_key],
+                                description=_('TouchNet posting value associated with event.'))
 
 
 class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
@@ -49,7 +54,8 @@ class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
                         'url': 'https://www.paypal.com/cgi-bin/webscr'}
     default_event_settings = {'enabled': False,
                               'method_name': None,
-                              'business': None}
+                              'validation_key': None,
+                              'posting_value': None}
 
     def init(self):
         super(TouchnetPaymentPlugin, self).init()
@@ -71,7 +77,6 @@ class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
         )
         data['return_url'] = url_for_plugin('payment_touchnet.success', registration.locator.uuid, _external=True)
         data['cancel_url'] = url_for_plugin('payment_touchnet.cancel', registration.locator.uuid, _external=True)
-        # data['error_url'] = url_for_plugin('payment_touchnet.error', registration.locator.uuid, _external=True)
         data['notify_url'] = url_for_plugin('payment_touchnet.notify', registration.locator.uuid, _external=True)
 
     def _get_encoding_warning(self, plugin=None, event=None):
