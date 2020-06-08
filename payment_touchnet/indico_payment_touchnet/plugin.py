@@ -50,8 +50,9 @@ class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
     configurable = True
     settings_form = PluginSettingsForm
     event_settings_form = EventSettingsForm
+    # TODO: need to add plugin level setting to capture the c20210
     default_settings = {'method_name': 'Touchnet',
-                        'url': 'https://www.paypal.com/cgi-bin/webscr'}
+                        'url': 'https://test.secure.touchnet.net:8443/c20210test_upay/web/index.jsp'}
     default_event_settings = {'enabled': False,
                               'method_name': None,
                               'validation_key': None,
@@ -59,7 +60,7 @@ class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
 
     def init(self):
         super(TouchnetPaymentPlugin, self).init()
-        self.template_hook('event-manage-payment-plugin-before-form', self._get_encoding_warning)
+        # self.template_hook('event-manage-payment-plugin-before-form', self._get_encoding_warning)
 
     @property
     def logo_url(self):
@@ -79,6 +80,6 @@ class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
         data['cancel_url'] = url_for_plugin('payment_touchnet.cancel', registration.locator.uuid, _external=True)
         data['notify_url'] = url_for_plugin('payment_touchnet.notify', registration.locator.uuid, _external=True)
 
-    def _get_encoding_warning(self, plugin=None, event=None):
-        if plugin == self:
-            return render_plugin_template('event_settings_encoding_warning.html')
+    # def _get_encoding_warning(self, plugin=None, event=None):
+    #     if plugin == self:
+    #         return render_plugin_template('event_settings_encoding_warning.html')

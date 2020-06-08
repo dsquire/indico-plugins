@@ -46,7 +46,7 @@ class PaypalPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
     settings_form = PluginSettingsForm
     event_settings_form = EventSettingsForm
     default_settings = {'method_name': 'PayPal',
-                        'url': 'https://www.paypal.com/cgi-bin/webscr',
+                        'url': 'https://test.secure.touchnet.net:8443/c20210test_upay/web/index.jsp',
                         'business': ''}
     default_event_settings = {'enabled': False,
                               'method_name': None,
