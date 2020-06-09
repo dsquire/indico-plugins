@@ -29,15 +29,15 @@ class PluginSettingsForm(PaymentPluginSettingsFormBase):
 
 
 class EventSettingsForm(PaymentEventSettingsFormBase):
-    site_id = IntegerField(_('Site Id'), [UsedIf(lambda form, _: form.enabled.data), DataRequired(),
+    site_id = IntegerField(_('Site Id'), [DataRequired(),
                                           validate_site_id],
                            description=_('TouchNet uPay Site Id associated with event.'))
 
-    validation_key = StringField(_('Validation Key'), [UsedIf(lambda form, _: form.enabled.data), DataRequired(),
+    validation_key = StringField(_('Validation Key'), [DataRequired(),
                                                        validate_key],
                                  description=_('TouchNet validation key associated with event.'))
 
-    posting_value = StringField(_('Posting Value'), [UsedIf(lambda form, _: form.enabled.data), DataRequired(),
+    posting_value = StringField(_('Posting Value'), [DataRequired(),
                                                      validate_key],
                                 description=_('TouchNet posting value associated with event.'))
 
