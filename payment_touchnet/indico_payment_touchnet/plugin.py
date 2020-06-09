@@ -55,6 +55,7 @@ class TouchnetPaymentPlugin(PaymentPluginMixin, IndicoPlugin):
                         'url': 'https://test.secure.touchnet.net:8443/c20210test_upay/web/index.jsp'}
     default_event_settings = {'enabled': False,
                               'method_name': None,
+                              'site_id' : None,
                               'validation_key': None,
                               'posting_value': None}
 
